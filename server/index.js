@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 
 const keys = require("./config/keys.js");
 
+// Importing models
+require("./models/task.js");
+
+const Task = mongoose.model("tasks"); // accessing "task" model class
+
 mongoose.connect(keys.mongoURI); // connecting Mongoose to MongoDB
 const app = express(); // initiates a new Express app
 
