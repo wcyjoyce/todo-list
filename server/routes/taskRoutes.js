@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const Task = mongoose.model("tasks");
 
 module.exports = app => {
-  app.get("/", (req, res) => {
-    res.send({ "todo": "list" });
+  // CRUD #1: read tasks (all)
+  app.get("/api/tasks", (req, res) => {
+    Task.find((error, tasks) => {
+      res.send(tasks);
+    });
   });
 
-  app.get("/api/tasks", async (req, res) => {
-    console.log("all tasks")
-  });
-
+  // CRUD #2: create task
   app.post("/api/tasks", async (req, res) => {
     const { name, dateCreated, status } = req.body;
     const task = new Task({
