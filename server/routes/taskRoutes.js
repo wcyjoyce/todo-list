@@ -10,7 +10,15 @@ module.exports = app => {
     });
   });
 
-  // CRUD #2: create task
+  // CRUD #2: read task (individual)
+  app.get("/setup/:id", (req, res) => {
+    Task.findById({ _id: req.params.id }, (error, task) => {
+      if (error) throw error;
+      res.send(task);
+    });
+  });
+
+  // CRUD #3: create task
   app.post("/api/tasks", async (req, res) => {
     const { name, dateCreated, status } = req.body;
     const task = new Task({
