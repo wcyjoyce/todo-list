@@ -11,7 +11,7 @@ module.exports = app => {
   });
 
   // CRUD #2: read task (individual)
-  app.get("/setup/:id", (req, res) => {
+  app.get("/api/tasks/:id", (req, res) => {
     Task.findById({ _id: req.params.id }, (error, task) => {
       if (error) throw error;
       res.send(task);
