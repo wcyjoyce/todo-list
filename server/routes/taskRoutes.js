@@ -20,7 +20,7 @@ module.exports = app => {
 
   // CRUD #3: create task
   app.post("/api/tasks", async (req, res) => {
-    const { name, dateCreated, status } = req.body;
+    const { description, dateCreated, status } = req.body;
     const task = new Task({
       description,
       dateCreated: Date.now(),
@@ -33,5 +33,17 @@ module.exports = app => {
     } catch (error) {
       res.status(422).send(error);
     };
+  });
+
+  // CRUD #4: update task
+  app.get("/api/tasks", (req, res) => {
+    Task.findByIdAndUpdate({ _id: req.params.id }, (error, task) => {
+      if (error) throw error;
+      const { description, deadline, status } = req.body;
+      task.description = description;
+      task.deadline = deadline;
+      task.status = status;
+      res.send("task updated");
+    });
   });
 };
