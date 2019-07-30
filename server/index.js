@@ -9,9 +9,17 @@ require("./models/task.js");
 
 const Task = mongoose.model("tasks"); // accessing "task" model class
 
-mongoose.connect(keys.mongoURI); // connecting Mongoose to MongoDB
+var allowCrossDomain = function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+};
+
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true }); // connecting Mongoose to MongoDB
 const app = express(); // initiates a new Express app
 app.use(bodyParser.json()); // passes app into BodyParser middleware
+app.use(allowCrossDomain); // enables cross-domain access
 
 // Importing routes
 require("./routes/taskRoutes.js")(app);
