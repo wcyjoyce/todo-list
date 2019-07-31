@@ -1,20 +1,21 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import { connect } from "react-redux";
-
-import * as actions from "../actions";
 
 import Tasks from "./tasks.jsx";
-import New from "./new.jsx";
+import Input from "./input.jsx";
 
 class App extends Component {
+  handleSubmit = event => {
+    if (event.key === "Enter") {
+      console.log(event.target.value);
+    };
+  };
+
   render() {
     return (
-      <div>
-        <BrowserRouter>
-          <Route path="/" exact component={Tasks} />
-          <Route path="/new" component={New} />
-        </BrowserRouter>
+      <div className="app">
+        <h1>Tasks</h1>
+        <Input handleSubmit={this.handleSubmit} />
+        <Tasks />
       </div>
     );
   };
