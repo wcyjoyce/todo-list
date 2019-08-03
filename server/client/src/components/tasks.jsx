@@ -19,7 +19,9 @@ class Tasks extends Component {
             <th>Description</th>
             <th>Date Created</th>
             <th>Deadline</th>
+            <th>Date Completed</th>
             <th>Status</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>{this.props.tasks.map(task => <Task key={task._id} task={task}/>)}</tbody>
