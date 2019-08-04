@@ -36,7 +36,7 @@ module.exports = app => {
   });
 
   // CRUD #4: update task
-  app.get("/api/tasks", (req, res) => {
+  app.get("/api/tasks/:id", (req, res) => {
     Task.findByIdAndUpdate({ _id: req.params.id }, (error, task) => {
       if (error) throw error;
       const { description, deadline, status } = req.body;
@@ -44,6 +44,14 @@ module.exports = app => {
       task.deadline = deadline;
       task.status = status;
       res.send("task updated");
+    });
+  });
+
+  // CRUD #5: delete task
+  app.delete("/api/tasks/:id", (req, res) => {
+    Task.findByIdAndRemove(req.body.id, (error, task) => {
+      if (error) throw error;
+      res.send("task removed");
     });
   });
 };
