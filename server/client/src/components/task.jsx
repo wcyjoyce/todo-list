@@ -8,6 +8,10 @@ class Task extends Component {
     return status ? "Y" : "N";
   };
 
+  renderOutstanding = date => {
+    return date > Date.now() ? "red" : "";
+  };
+
   handleDelete = () => {
     this.props.deleteTask(this.props.task._id);
   };
@@ -16,7 +20,7 @@ class Task extends Component {
     const { description, status, deadline, dateCreated, dateCompleted } = this.props.task;
 
     return (
-      <tr className="task">
+      <tr className="task" style={{ color: this.renderOutstanding(deadline) }}>
         <td>{description}</td>
         <td>{dateCreated ? new Date(dateCreated).toLocaleDateString() : ""}</td>
         <td>{deadline ? new Date(deadline).toLocaleDateString() : ""}</td>
